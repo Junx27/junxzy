@@ -2,10 +2,10 @@ package commands
 
 import (
 	"path/filepath"
+	"time"
 
 	"os"
 
-	"github.com/Junx27/junxzy/internal/file"
 	"github.com/Junx27/junxzy/internal/generator"
 	"github.com/Junx27/junxzy/internal/ui"
 )
@@ -30,17 +30,21 @@ func (m MakeModuleCommand) Execute(args []string) {
 		return
 	}
 
-	dirs := []string{"handler", "service", "repository"}
+	ui.RunStep("Generate full module "+name, func() {
+		time.Sleep(5 * time.Second)
+		modulePath := generator.GetModulePath()
 
-	ui.RunStep("Membuat struktur module "+name, func() {
-		file.CreateDirs(base, dirs)
+		err := generator.GenerateFullModule(base, name, modulePath)
+		if err != nil {
+			panic(err)
+		}
 	})
 
-	ui.RunStep("Generate CRUD "+name, func() {
-		err := generator.CreateCRUD(base, name)
+	ui.RunStep("Register route "+name, func() {
+		time.Sleep(5 * time.Second)
+		err := generator.InjectRoute(name)
 		if err != nil {
-			ui.StopError("Gagal generate CRUD: " + err.Error())
-			return
+			panic(err)
 		}
 	})
 
