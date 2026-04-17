@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+
+	"github.com/Junx27/junxzy/internal/ui"
 )
 
 type InitCommand struct{}
@@ -14,36 +16,52 @@ func (i InitCommand) Name() string {
 
 func (i InitCommand) Execute(args []string) {
 	if len(args) < 1 {
-		fmt.Println("Nama project wajib diisi")
+		ui.Error("Nama project wajib diisi")
 		return
 	}
 
 	projectName := args[0]
 
+	// ✅ Validasi: jangan overwrite project
+	if _, err := os.Stat(projectName); !os.IsNotExist(err) {
+		ui.Error("Project sudah ada: " + projectName)
+		return
+	}
+
 	// root project
+	ui.Step("Membuat folder project...")
 	createDir(projectName)
 
-	// masuk ke project
 	base := projectName
 
 	// services
+	ui.Step("Membuat services...")
 	services := []string{"user", "auth", "product"}
 
 	for _, svc := range services {
 		createService(base, svc)
+		ui.Success("service " + svc + " dibuat")
 	}
 
 	// gateway
+	ui.Step("Membuat gateway...")
 	os.MkdirAll(filepath.Join(base, "gateway"), os.ModePerm)
 
 	// docker-compose
+	ui.Step("Membuat docker-compose...")
 	createDockerCompose(base)
+	ui.Success("docker-compose dibuat")
 
 	// readme
+	ui.Step("Membuat README...")
 	createReadme(base, projectName)
+	ui.Success("README dibuat")
 
-	fmt.Println("🚀 Project microservices berhasil dibuat:", projectName)
+	fmt.Println()
+	ui.Success("Project microservices berhasil dibuat: " + projectName)
 }
+
+// ================= HELPER =================
 
 func createDir(path string) {
 	os.MkdirAll(path, os.ModePerm)
