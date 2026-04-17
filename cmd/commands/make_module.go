@@ -6,6 +6,7 @@ import (
 
 	"os"
 
+	"github.com/Junx27/junxzy/internal/file"
 	"github.com/Junx27/junxzy/internal/generator"
 	"github.com/Junx27/junxzy/internal/ui"
 )
@@ -30,10 +31,22 @@ func (m MakeModuleCommand) Execute(args []string) {
 		return
 	}
 
-	ui.RunStep("Generate full module "+name, func() {
-		time.Sleep(5 * time.Second)
-		modulePath := generator.GetModulePath()
+	// ✅ ambil module path di sini
+	modulePath := generator.GetModulePath()
+	if modulePath == "" {
+		ui.StopError("module path tidak ditemukan di go.mod")
+		return
+	}
 
+	dirs := []string{"model", "repository", "service", "handler", "route"}
+
+	ui.RunStep("Membuat struktur module "+name, func() {
+		time.Sleep(3 * time.Second)
+		file.CreateDirs(base, dirs)
+	})
+
+	ui.RunStep("Generate full module "+name, func() {
+		time.Sleep(3 * time.Second)
 		err := generator.GenerateFullModule(base, name, modulePath)
 		if err != nil {
 			panic(err)
@@ -41,8 +54,24 @@ func (m MakeModuleCommand) Execute(args []string) {
 	})
 
 	ui.RunStep("Register route "+name, func() {
-		time.Sleep(5 * time.Second)
+		time.Sleep(3 * time.Second)
 		err := generator.InjectRoute(name)
+		if err != nil {
+			panic(err)
+		}
+	})
+
+	ui.RunStep("Inject main.go", func() {
+		time.Sleep(3 * time.Second)
+		err := generator.InjectMain()
+		if err != nil {
+			panic(err)
+		}
+	})
+
+	ui.RunStep("Run go mod tidy", func() {
+		time.Sleep(3 * time.Second)
+		err := generator.RunGoModTidy()
 		if err != nil {
 			panic(err)
 		}

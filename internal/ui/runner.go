@@ -1,10 +1,12 @@
 package ui
 
+import "fmt"
+
 func RunStep(message string, fn func()) {
 	Start(message)
 	defer func() {
 		if r := recover(); r != nil {
-			StopError("Terjadi kesalahan")
+			StopError(fmt.Sprintf("Error: %v", r))
 			return
 		}
 	}()
