@@ -16,46 +16,42 @@ func (i InitCommand) Name() string {
 
 func (i InitCommand) Execute(args []string) {
 	if len(args) < 1 {
-		ui.Error("Nama project wajib diisi")
+		ui.StopError("Nama project wajib diisi")
 		return
 	}
 
 	projectName := args[0]
 
-	// ✅ Validasi: jangan overwrite project
 	if _, err := os.Stat(projectName); !os.IsNotExist(err) {
-		ui.Error("Project sudah ada: " + projectName)
+		ui.StopError("Project sudah ada: " + projectName)
 		return
 	}
 
-	// root project
-	ui.Step("Membuat folder project...")
+	ui.Start("Membuat folder project...")
 	createDir(projectName)
+	ui.StopSuccess("Folder project dibuat")
 
 	base := projectName
 
-	// services
-	ui.Step("Membuat services...")
 	services := []string{"user", "auth", "product"}
 
+	ui.Start("Membuat services...")
 	for _, svc := range services {
 		createService(base, svc)
-		ui.Success("service " + svc + " dibuat")
 	}
+	ui.StopSuccess("Semua services berhasil dibuat")
 
-	// gateway
-	ui.Step("Membuat gateway...")
+	ui.Start("Membuat gateway...")
 	os.MkdirAll(filepath.Join(base, "gateway"), os.ModePerm)
+	ui.StopSuccess("Gateway dibuat")
 
-	// docker-compose
-	ui.Step("Membuat docker-compose...")
+	ui.Start("Membuat docker-compose...")
 	createDockerCompose(base)
-	ui.Success("docker-compose dibuat")
+	ui.StopSuccess("docker-compose dibuat")
 
-	// readme
-	ui.Step("Membuat README...")
+	ui.Start("Membuat README...")
 	createReadme(base, projectName)
-	ui.Success("README dibuat")
+	ui.StopSuccess("README dibuat")
 
 	fmt.Println()
 	ui.Success("Project microservices berhasil dibuat: " + projectName)
