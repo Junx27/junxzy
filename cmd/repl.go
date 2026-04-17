@@ -3,10 +3,11 @@ package cmd
 import (
 	"bufio"
 	"fmt"
-	"junxzy/cmd/commands"
+
 	"os"
 	"strings"
 
+	"github.com/Junx27/junxzy/cmd/commands"
 	"github.com/fatih/color"
 )
 
