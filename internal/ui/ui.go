@@ -16,7 +16,7 @@ var (
 var s *spinner.Spinner
 
 func Success(message string) {
-	fmt.Println(green("✔ ") + message)
+	fmt.Println(green(message))
 }
 
 // Start loading animation

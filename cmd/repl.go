@@ -52,4 +52,5 @@ func registerCommands() {
 	RegisterCommand(commands.ExitCommand{})
 	RegisterCommand(commands.MakeModuleCommand{})
 	RegisterCommand(commands.InitCommand{})
+	RegisterCommand(commands.SimulateCommand{})
 }
