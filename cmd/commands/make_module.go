@@ -31,10 +31,9 @@ func (m MakeModuleCommand) Execute(args []string) {
 		return
 	}
 
-	// ✅ ambil module path di sini
-	modulePath := generator.GetModulePath()
-	if modulePath == "" {
-		ui.StopError("module path tidak ditemukan di go.mod")
+	modulePath, err := generator.EnsureGoMod(name)
+	if err != nil {
+		ui.StopError(err.Error())
 		return
 	}
 
