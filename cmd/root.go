@@ -40,6 +40,8 @@ func printBanner() {
 	fmt.Println(cyan("  ║") + white("   Happy coding with Golang 🔥        ") + cyan("║"))
 	fmt.Println(cyan("  ╚══════════════════════════════════════╝"))
 	fmt.Println()
+	fmt.Println(white("  Junxzy CLI is your personal developer assistant"))
+	fmt.Println(white("  for generating modules, managing projects, and speeding up your workflow."))
 	fmt.Println(yellow("  Type ") + green("'help'") + yellow(" to see all commands."))
 	fmt.Println(yellow("  Type ") + red("'exit'") + yellow(" to exit."))
 	fmt.Println()
