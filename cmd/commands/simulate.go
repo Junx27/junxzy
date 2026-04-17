@@ -14,25 +14,25 @@ func (s SimulateCommand) Name() string {
 
 func (s SimulateCommand) Execute(args []string) {
 
-	ui.Start("Membuat folder project...")
-	time.Sleep(1 * time.Second)
-	ui.StopSuccess("Folder project dibuat")
+	ui.RunStep("Membuat folder project", func() {
+		time.Sleep(1 * time.Second)
+	})
 
-	ui.Start("Generate services...")
-	time.Sleep(2 * time.Second)
-	ui.StopSuccess("Services berhasil dibuat")
+	ui.RunStep("Generate services", func() {
+		time.Sleep(2 * time.Second)
+	})
 
-	ui.Start("Setup gateway...")
-	time.Sleep(1 * time.Second)
-	ui.StopSuccess("Gateway siap")
+	ui.RunStep("Setup gateway", func() {
+		time.Sleep(1 * time.Second)
+	})
 
-	ui.Start("Generate docker-compose...")
-	time.Sleep(2 * time.Second)
-	ui.StopSuccess("docker-compose dibuat")
+	ui.RunStep("Generate docker-compose", func() {
+		time.Sleep(2 * time.Second)
+	})
 
-	ui.Start("Finalizing project...")
-	time.Sleep(1 * time.Second)
-	ui.StopSuccess("Project siap digunakan")
+	ui.RunStep("Finalizing project", func() {
+		time.Sleep(1 * time.Second)
+	})
 
 	ui.Success("Simulasi selesai 🚀")
 }

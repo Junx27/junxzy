@@ -1,9 +1,13 @@
 package commands
 
 import (
-	"fmt"
-	"os"
 	"path/filepath"
+
+	"os"
+
+	"github.com/Junx27/junxzy/internal/file"
+	"github.com/Junx27/junxzy/internal/generator"
+	"github.com/Junx27/junxzy/internal/ui"
 )
 
 type MakeModuleCommand struct{}
@@ -14,16 +18,31 @@ func (m MakeModuleCommand) Name() string {
 
 func (m MakeModuleCommand) Execute(args []string) {
 	if len(args) < 1 {
-		fmt.Println("Nama module wajib diisi")
+		ui.StopError("Nama module wajib diisi")
 		return
 	}
 
 	name := args[0]
 	base := filepath.Join("modules", name)
 
-	os.MkdirAll(filepath.Join(base, "handler"), os.ModePerm)
-	os.MkdirAll(filepath.Join(base, "service"), os.ModePerm)
-	os.MkdirAll(filepath.Join(base, "repository"), os.ModePerm)
+	if _, err := os.Stat(base); !os.IsNotExist(err) {
+		ui.StopError("Module sudah ada: " + name)
+		return
+	}
 
-	fmt.Println("Module berhasil dibuat:", name)
+	dirs := []string{"handler", "service", "repository"}
+
+	ui.RunStep("Membuat struktur module "+name, func() {
+		file.CreateDirs(base, dirs)
+	})
+
+	ui.RunStep("Generate CRUD "+name, func() {
+		err := generator.CreateCRUD(base, name)
+		if err != nil {
+			ui.StopError("Gagal generate CRUD: " + err.Error())
+			return
+		}
+	})
+
+	ui.Success("Module berhasil dibuat: " + name)
 }
