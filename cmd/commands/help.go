@@ -11,6 +11,7 @@ func (h HelpCommand) Name() string {
 func (h HelpCommand) Execute(args []string) {
 	fmt.Println("============ Daftar command ============ ")
 	fmt.Println("-- help")
+	fmt.Println("-- hello [name]")
 	fmt.Println("-- clear")
 	fmt.Println("-- exit")
 	fmt.Println("-- make:module [name]")

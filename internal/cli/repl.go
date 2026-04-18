@@ -46,6 +46,7 @@ func startREPL() {
 
 func registerCommands() {
 	RegisterCommand(commands.HelpCommand{})
+	RegisterCommand(commands.HelloCommand{})
 	RegisterCommand(commands.ClearCommand{})
 	RegisterCommand(commands.ExitCommand{})
 	RegisterCommand(commands.MakeModuleCommand{})
