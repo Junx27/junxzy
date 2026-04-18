@@ -68,10 +68,19 @@ jobs:
           go-version-file: go.mod
           cache: true
 
-      - name: Run coverage
+      - name: Run coverage and sync README summary
+        run: bash ./scripts/update-coverage-readme.sh
+
+      - name: Validate README coverage summary is up to date
         run: |
-          go test ./... -coverprofile=coverage.out
-          go tool cover -func=coverage.out > coverage.txt
+          if ! git diff --exit-code -- README.md; then
+            echo "README.md coverage summary is out of date."
+            echo "Run ./scripts/update-coverage-readme.sh and commit the changes."
+            exit 1
+          fi
+
+      - name: Generate coverage text report artifact
+        run: go tool cover -func=coverage.out > coverage.txt
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
