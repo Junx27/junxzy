@@ -83,12 +83,12 @@ PASS
 
 ```text
 github.com/Junx27/junxzy 100.0%
-github.com/Junx27/junxzy/cmd/commands 100.0%
+github.com/Junx27/junxzy/cmd/commands 95.8%
 github.com/Junx27/junxzy/internal/cli 100.0%
 github.com/Junx27/junxzy/internal/file 100.0%
 github.com/Junx27/junxzy/internal/generator 100.0%
 github.com/Junx27/junxzy/internal/ui 100.0%
-TOTAL 100.0%
+TOTAL 98.2%
 ```
 
 ## CI/CD
