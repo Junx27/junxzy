@@ -41,7 +41,9 @@ func (m MakeModuleCommand) Execute(args []string) {
 
 	ui.RunStep("Creating module structure "+name, func() {
 		time.Sleep(3 * time.Second)
-		file.CreateDirs(base, dirs)
+		if err := file.CreateDirs(base, dirs); err != nil {
+			panic(err)
+		}
 	})
 
 	ui.RunStep("Generate full module "+name, func() {

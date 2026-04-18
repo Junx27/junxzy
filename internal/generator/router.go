@@ -21,8 +21,12 @@ func RegisterRoutes(r *gin.Engine) {
 
 }
 `
-		os.MkdirAll("router", os.ModePerm)
-		os.WriteFile(filePath, []byte(template), os.ModePerm)
+		if err := os.MkdirAll("router", os.ModePerm); err != nil {
+			return err
+		}
+		if err := os.WriteFile(filePath, []byte(template), os.ModePerm); err != nil {
+			return err
+		}
 	}
 
 	data, err := os.ReadFile(filePath)
@@ -61,5 +65,9 @@ func RegisterRoutes(r *gin.Engine) {
 		)
 	}
 
-	return os.WriteFile(filePath, []byte(content), os.ModePerm)
+	if err := os.WriteFile(filePath, []byte(content), os.ModePerm); err != nil {
+		return err
+	}
+
+	return nil
 }

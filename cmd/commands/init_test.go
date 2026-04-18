@@ -11,7 +11,9 @@ func TestCreateDirCreatesTargetFolder(t *testing.T) {
 	tmp := t.TempDir()
 	target := filepath.Join(tmp, "project")
 
-	createDir(target)
+	if err := createDir(target); err != nil {
+		t.Fatalf("createDir returned error: %v", err)
+	}
 
 	if info, err := os.Stat(target); err != nil || !info.IsDir() {
 		t.Fatalf("expected directory %q to exist, err=%v", target, err)
@@ -21,7 +23,9 @@ func TestCreateDirCreatesTargetFolder(t *testing.T) {
 func TestCreateServiceCreatesStructureAndMainFile(t *testing.T) {
 	tmp := t.TempDir()
 
-	createService(tmp, "user")
+	if err := createService(tmp, "user"); err != nil {
+		t.Fatalf("createService returned error: %v", err)
+	}
 
 	for _, dir := range []string{"handler", "service", "repository"} {
 		path := filepath.Join(tmp, "services", "user", dir)
@@ -48,8 +52,12 @@ func TestCreateServiceCreatesStructureAndMainFile(t *testing.T) {
 func TestCreateDockerComposeAndReadme(t *testing.T) {
 	tmp := t.TempDir()
 
-	createDockerCompose(tmp)
-	createReadme(tmp, "demo")
+	if err := createDockerCompose(tmp); err != nil {
+		t.Fatalf("createDockerCompose returned error: %v", err)
+	}
+	if err := createReadme(tmp, "demo"); err != nil {
+		t.Fatalf("createReadme returned error: %v", err)
+	}
 
 	dockerComposePath := filepath.Join(tmp, "docker-compose.yml")
 	dockerCompose, err := os.ReadFile(dockerComposePath)

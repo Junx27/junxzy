@@ -167,18 +167,33 @@ func Register` + name + `Routes(r *gin.Engine) {
 `
 
 	// write files
-	write(filepath.Join(base, "model", lower+".go"), model)
-	write(filepath.Join(base, "repository", lower+"_repository.go"), repo)
-	write(filepath.Join(base, "service", lower+"_service.go"), service)
-	write(filepath.Join(base, "handler", lower+"_handler.go"), handler)
-	write(filepath.Join(base, "route", lower+"_route.go"), route)
+	if err := write(filepath.Join(base, "model", lower+".go"), model); err != nil {
+		return err
+	}
+	if err := write(filepath.Join(base, "repository", lower+"_repository.go"), repo); err != nil {
+		return err
+	}
+	if err := write(filepath.Join(base, "service", lower+"_service.go"), service); err != nil {
+		return err
+	}
+	if err := write(filepath.Join(base, "handler", lower+"_handler.go"), handler); err != nil {
+		return err
+	}
+	if err := write(filepath.Join(base, "route", lower+"_route.go"), route); err != nil {
+		return err
+	}
 
 	return nil
 }
 
-func write(path, content string) {
-	os.MkdirAll(filepath.Dir(path), os.ModePerm)
-	os.WriteFile(path, []byte(content), os.ModePerm)
+func write(path, content string) error {
+	if err := os.MkdirAll(filepath.Dir(path), os.ModePerm); err != nil {
+		return err
+	}
+	if err := os.WriteFile(path, []byte(content), os.ModePerm); err != nil {
+		return err
+	}
+	return nil
 }
 
 func capitalize(s string) string {
