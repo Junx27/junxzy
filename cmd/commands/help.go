@@ -9,7 +9,7 @@ func (h HelpCommand) Name() string {
 }
 
 func (h HelpCommand) Execute(args []string) {
-	fmt.Println("============ List command ============ ")
+	fmt.Println("============ Daftar command ============")
 	fmt.Println("-- help")
 	fmt.Println("-- hello [name]")
 	fmt.Println("-- clear")
