@@ -37,7 +37,7 @@ func TestHelpCommandExecutePrintsCommands(t *testing.T) {
 	}
 
 	output := buf.String()
-	for _, expected := range []string{"Daftar command", "-- help", "-- clear", "-- exit", "-- make:module [name]"} {
+	for _, expected := range []string{"List command", "-- help", "-- clear", "-- exit", "-- make:module [name]"} {
 		if !strings.Contains(output, expected) {
 			t.Fatalf("expected output to contain %q, got %q", expected, output)
 		}
