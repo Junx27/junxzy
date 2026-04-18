@@ -1,5 +1,17 @@
 mode: set
 github.com/Junx27/junxzy/main.go:7.13,9.2 1 1
+github.com/Junx27/junxzy/internal/ui/runner.go:5.41,7.15 2 1
+github.com/Junx27/junxzy/internal/ui/runner.go:7.15,8.31 1 1
+github.com/Junx27/junxzy/internal/ui/runner.go:8.31,11.4 2 1
+github.com/Junx27/junxzy/internal/ui/runner.go:13.2,14.35 2 1
+github.com/Junx27/junxzy/internal/ui/ui.go:18.30,20.2 1 1
+github.com/Junx27/junxzy/internal/ui/ui.go:23.28,27.2 3 1
+github.com/Junx27/junxzy/internal/ui/ui.go:30.34,31.14 1 1
+github.com/Junx27/junxzy/internal/ui/ui.go:31.14,33.3 1 1
+github.com/Junx27/junxzy/internal/ui/ui.go:34.2,34.38 1 1
+github.com/Junx27/junxzy/internal/ui/ui.go:38.32,39.14 1 1
+github.com/Junx27/junxzy/internal/ui/ui.go:39.14,41.3 1 1
+github.com/Junx27/junxzy/internal/ui/ui.go:42.2,42.36 1 1
 github.com/Junx27/junxzy/internal/cli/registry.go:10.35,12.2 1 1
 github.com/Junx27/junxzy/internal/cli/repl.go:13.18,21.6 5 1
 github.com/Junx27/junxzy/internal/cli/repl.go:21.6,24.22 2 1
@@ -20,18 +32,6 @@ github.com/Junx27/junxzy/internal/file/dir.go:8.51,9.25 1 1
 github.com/Junx27/junxzy/internal/file/dir.go:9.25,11.56 2 1
 github.com/Junx27/junxzy/internal/file/dir.go:11.56,13.4 1 1
 github.com/Junx27/junxzy/internal/file/dir.go:15.2,15.12 1 1
-github.com/Junx27/junxzy/internal/ui/runner.go:5.41,7.15 2 1
-github.com/Junx27/junxzy/internal/ui/runner.go:7.15,8.31 1 1
-github.com/Junx27/junxzy/internal/ui/runner.go:8.31,11.4 2 1
-github.com/Junx27/junxzy/internal/ui/runner.go:13.2,14.35 2 1
-github.com/Junx27/junxzy/internal/ui/ui.go:18.30,20.2 1 1
-github.com/Junx27/junxzy/internal/ui/ui.go:23.28,27.2 3 1
-github.com/Junx27/junxzy/internal/ui/ui.go:30.34,31.14 1 1
-github.com/Junx27/junxzy/internal/ui/ui.go:31.14,33.3 1 1
-github.com/Junx27/junxzy/internal/ui/ui.go:34.2,34.38 1 1
-github.com/Junx27/junxzy/internal/ui/ui.go:38.32,39.14 1 1
-github.com/Junx27/junxzy/internal/ui/ui.go:39.14,41.3 1 1
-github.com/Junx27/junxzy/internal/ui/ui.go:42.2,42.36 1 1
 github.com/Junx27/junxzy/cmd/commands/clear.go:7.37,9.2 1 1
 github.com/Junx27/junxzy/cmd/commands/clear.go:11.46,13.2 1 1
 github.com/Junx27/junxzy/cmd/commands/exit.go:10.36,12.2 1 1
