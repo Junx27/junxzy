@@ -212,7 +212,7 @@ func TestStartREPLSkipsBlankInput(t *testing.T) {
 	if strings.Count(output, "junxzy") < 2 {
 		t.Fatalf("expected REPL prompt to appear twice, got %q", output)
 	}
-	if !strings.Contains(output, "Daftar command") {
+	if !strings.Contains(output, "List command") {
 		t.Fatalf("expected help output in REPL result, got %q", output)
 	}
 }

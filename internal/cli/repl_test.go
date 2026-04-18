@@ -46,7 +46,7 @@ func TestStartREPLExecutesKnownCommand(t *testing.T) {
 	}
 
 	output := buf.String()
-	if !strings.Contains(output, "Daftar command") {
+	if !strings.Contains(output, "List command") {
 		t.Fatalf("expected help output in REPL result, got %q", output)
 	}
 	if !strings.Contains(output, "junxzy") {
