@@ -1,5 +1,8 @@
 name: CI
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   push:
     branches:
@@ -75,7 +78,7 @@ jobs:
         with:
           files: coverage.out
           flags: unit-tests
-          fail_ci_if_error: true
+          fail_ci_if_error: false
 
       - name: Upload coverage artifacts
         uses: actions/upload-artifact@v4
