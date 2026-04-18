@@ -19,7 +19,7 @@ func (m MakeModuleCommand) Name() string {
 
 func (m MakeModuleCommand) Execute(args []string) {
 	if len(args) < 1 {
-		ui.StopError("Nama module wajib diisi")
+		ui.StopError("Module name is required")
 		return
 	}
 
@@ -27,7 +27,7 @@ func (m MakeModuleCommand) Execute(args []string) {
 	base := filepath.Join("modules", name)
 
 	if _, err := os.Stat(base); !os.IsNotExist(err) {
-		ui.StopError("Module sudah ada: " + name)
+		ui.StopError("Module already exists: " + name)
 		return
 	}
 
@@ -39,7 +39,7 @@ func (m MakeModuleCommand) Execute(args []string) {
 
 	dirs := []string{"model", "repository", "service", "handler", "route"}
 
-	ui.RunStep("Membuat struktur module "+name, func() {
+	ui.RunStep("Creating module structure "+name, func() {
 		time.Sleep(3 * time.Second)
 		file.CreateDirs(base, dirs)
 	})
@@ -52,7 +52,7 @@ func (m MakeModuleCommand) Execute(args []string) {
 		}
 	})
 
-	ui.RunStep("Register route "+name, func() {
+	ui.RunStep("Registering route "+name, func() {
 		time.Sleep(3 * time.Second)
 		err := generator.InjectRoute(name)
 		if err != nil {
@@ -60,7 +60,7 @@ func (m MakeModuleCommand) Execute(args []string) {
 		}
 	})
 
-	ui.RunStep("Inject main.go", func() {
+	ui.RunStep("Injecting main.go", func() {
 		time.Sleep(3 * time.Second)
 		err := generator.InjectMain()
 		if err != nil {
@@ -68,7 +68,7 @@ func (m MakeModuleCommand) Execute(args []string) {
 		}
 	})
 
-	ui.RunStep("Run go mod tidy", func() {
+	ui.RunStep("Running go mod tidy", func() {
 		time.Sleep(3 * time.Second)
 		err := generator.RunGoModTidy()
 		if err != nil {
@@ -76,5 +76,5 @@ func (m MakeModuleCommand) Execute(args []string) {
 		}
 	})
 
-	ui.Success("Module berhasil dibuat: " + name)
+	ui.Success("Module created successfully: " + name)
 }

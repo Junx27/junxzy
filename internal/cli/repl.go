@@ -1,9 +1,8 @@
-package cmd
+package cli
 
 import (
 	"bufio"
 	"fmt"
-
 	"os"
 	"strings"
 
@@ -12,7 +11,6 @@ import (
 )
 
 func startREPL() {
-	// register semua command
 	registerCommands()
 
 	cyan := color.New(color.FgCyan, color.Bold).SprintFunc()
