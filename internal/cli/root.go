@@ -8,6 +8,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var runRootCommand = func() error {
+	return rootCmd.Execute()
+}
+
+var exitProcess = os.Exit
+
 var rootCmd = &cobra.Command{
 	Use:   "junxzy",
 	Short: "Happy coding with Junxzy CLI! 🚀",
@@ -48,10 +54,10 @@ func printBanner() {
 }
 
 func Execute() {
-	err := rootCmd.Execute()
+	err := runRootCommand()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		exitProcess(1)
 	}
 }
 

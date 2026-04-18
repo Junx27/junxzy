@@ -23,3 +23,15 @@ func TestCreateDirs(t *testing.T) {
 		}
 	}
 }
+
+func TestCreateDirsReturnsError(t *testing.T) {
+	tmp := t.TempDir()
+	conflict := filepath.Join(tmp, "conflict")
+	if err := os.WriteFile(conflict, []byte("file"), 0o644); err != nil {
+		t.Fatalf("failed to create conflict file: %v", err)
+	}
+
+	if err := CreateDirs(conflict, []string{"child"}); err == nil {
+		t.Fatalf("expected CreateDirs to return error")
+	}
+}

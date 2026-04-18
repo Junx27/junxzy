@@ -1,0 +1,1112 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>commands: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">github.com/Junx27/junxzy/cmd/commands/clear.go (100.0%)</option>
+				
+				<option value="file1">github.com/Junx27/junxzy/cmd/commands/exit.go (100.0%)</option>
+				
+				<option value="file2">github.com/Junx27/junxzy/cmd/commands/help.go (100.0%)</option>
+				
+				<option value="file3">github.com/Junx27/junxzy/cmd/commands/init.go (100.0%)</option>
+				
+				<option value="file4">github.com/Junx27/junxzy/cmd/commands/make_module.go (100.0%)</option>
+				
+				<option value="file5">github.com/Junx27/junxzy/cmd/commands/simulate.go (100.0%)</option>
+				
+				<option value="file6">github.com/Junx27/junxzy/internal/cli/registry.go (100.0%)</option>
+				
+				<option value="file7">github.com/Junx27/junxzy/internal/cli/repl.go (100.0%)</option>
+				
+				<option value="file8">github.com/Junx27/junxzy/internal/cli/root.go (100.0%)</option>
+				
+				<option value="file9">github.com/Junx27/junxzy/internal/file/dir.go (100.0%)</option>
+				
+				<option value="file10">github.com/Junx27/junxzy/internal/generator/go_cmd.go (100.0%)</option>
+				
+				<option value="file11">github.com/Junx27/junxzy/internal/generator/go_init.go (100.0%)</option>
+				
+				<option value="file12">github.com/Junx27/junxzy/internal/generator/go_mod.go (100.0%)</option>
+				
+				<option value="file13">github.com/Junx27/junxzy/internal/generator/main.go (100.0%)</option>
+				
+				<option value="file14">github.com/Junx27/junxzy/internal/generator/module.go (100.0%)</option>
+				
+				<option value="file15">github.com/Junx27/junxzy/internal/generator/router.go (95.8%)</option>
+				
+				<option value="file16">github.com/Junx27/junxzy/internal/ui/runner.go (100.0%)</option>
+				
+				<option value="file17">github.com/Junx27/junxzy/internal/ui/ui.go (100.0%)</option>
+				
+				<option value="file18">github.com/Junx27/junxzy/main.go (100.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package commands
+
+import "fmt"
+
+type ClearCommand struct{}
+
+func (c ClearCommand) Name() string <span class="cov8" title="1">{
+        return "clear"
+}</span>
+
+func (c ClearCommand) Execute(args []string) <span class="cov8" title="1">{
+        fmt.Print("\033[H\033[2J")
+}</span>
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package commands
+
+import (
+        "fmt"
+        "os"
+)
+
+type ExitCommand struct{}
+
+func (e ExitCommand) Name() string <span class="cov8" title="1">{
+        return "exit"
+}</span>
+
+func (e ExitCommand) Execute(args []string) <span class="cov8" title="1">{
+        fmt.Println("Bye! 👋")
+        os.Exit(0)
+}</span>
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package commands
+
+import "fmt"
+
+type HelpCommand struct{}
+
+func (h HelpCommand) Name() string <span class="cov8" title="1">{
+        return "help"
+}</span>
+
+func (h HelpCommand) Execute(args []string) <span class="cov8" title="1">{
+        fmt.Println("============ Daftar command ============ ")
+        fmt.Println("-- help")
+        fmt.Println("-- clear")
+        fmt.Println("-- exit")
+        fmt.Println("-- make:module [name]")
+}</span>
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package commands
+
+import (
+        "fmt"
+        "os"
+        "path/filepath"
+
+        "github.com/Junx27/junxzy/internal/ui"
+)
+
+var initCreateDirFn = createDir
+var initCreateServiceFn = createService
+var initCreateGatewayFn = func(base string) error <span class="cov8" title="1">{
+        return os.MkdirAll(filepath.Join(base, "gateway"), os.ModePerm)
+}</span>
+var initCreateDockerComposeFn = createDockerCompose
+var initCreateReadmeFn = createReadme
+
+type InitCommand struct{}
+
+func (i InitCommand) Name() string <span class="cov8" title="1">{
+        return "init"
+}</span>
+
+func (i InitCommand) Execute(args []string) <span class="cov8" title="1">{
+        if len(args) &lt; 1 </span><span class="cov8" title="1">{
+                ui.StopError("Nama project wajib diisi")
+                return
+        }</span>
+
+        <span class="cov8" title="1">projectName := args[0]
+
+        if _, err := os.Stat(projectName); !os.IsNotExist(err) </span><span class="cov8" title="1">{
+                ui.StopError("Project sudah ada: " + projectName)
+                return
+        }</span>
+
+        <span class="cov8" title="1">ui.Start("Membuat folder project...")
+        if err := initCreateDirFn(projectName); err != nil </span><span class="cov8" title="1">{
+                ui.StopError(err.Error())
+                return
+        }</span>
+        <span class="cov8" title="1">ui.StopSuccess("Folder project dibuat")
+
+        base := projectName
+
+        services := []string{"user", "auth", "product"}
+
+        ui.Start("Membuat services...")
+        for _, svc := range services </span><span class="cov8" title="1">{
+                if err := initCreateServiceFn(base, svc); err != nil </span><span class="cov8" title="1">{
+                        ui.StopError(err.Error())
+                        return
+                }</span>
+        }
+        <span class="cov8" title="1">ui.StopSuccess("Semua services berhasil dibuat")
+
+        ui.Start("Membuat gateway...")
+        if err := initCreateGatewayFn(base); err != nil </span><span class="cov8" title="1">{
+                ui.StopError(err.Error())
+                return
+        }</span>
+        <span class="cov8" title="1">ui.StopSuccess("Gateway dibuat")
+
+        ui.Start("Membuat docker-compose...")
+        if err := initCreateDockerComposeFn(base); err != nil </span><span class="cov8" title="1">{
+                ui.StopError(err.Error())
+                return
+        }</span>
+        <span class="cov8" title="1">ui.StopSuccess("docker-compose dibuat")
+
+        ui.Start("Membuat README...")
+        if err := initCreateReadmeFn(base, projectName); err != nil </span><span class="cov8" title="1">{
+                ui.StopError(err.Error())
+                return
+        }</span>
+        <span class="cov8" title="1">ui.StopSuccess("README dibuat")
+
+        fmt.Println()
+        ui.Success("Project microservices berhasil dibuat: " + projectName)</span>
+}
+
+// ================= HELPER =================
+
+func createDir(path string) error <span class="cov8" title="1">{
+        return os.MkdirAll(path, os.ModePerm)
+}</span>
+
+func createService(base, name string) error <span class="cov8" title="1">{
+        servicePath := filepath.Join(base, "services", name)
+
+        dirs := []string{
+                "handler",
+                "service",
+                "repository",
+        }
+
+        for _, d := range dirs </span><span class="cov8" title="1">{
+                if err := os.MkdirAll(filepath.Join(servicePath, d), os.ModePerm); err != nil </span><span class="cov8" title="1">{
+                        return err
+                }</span>
+        }
+
+        // main.go sederhana
+        <span class="cov8" title="1">mainFile := `package main
+
+import "fmt"
+
+func main() {
+        fmt.Println("` + name + ` service running")
+}
+`
+
+        return os.WriteFile(filepath.Join(servicePath, "main.go"), []byte(mainFile), os.ModePerm)</span>
+}
+
+func createDockerCompose(base string) error <span class="cov8" title="1">{
+        content := `version: '3'
+
+services:
+  user:
+    build: ./services/user
+    ports:
+      - "8001:8000"
+
+  auth:
+    build: ./services/auth
+    ports:
+      - "8002:8000"
+
+  product:
+    build: ./services/product
+    ports:
+      - "8003:8000"
+`
+
+        return os.WriteFile(filepath.Join(base, "docker-compose.yml"), []byte(content), os.ModePerm)
+}</span>
+
+func createReadme(base, name string) error <span class="cov8" title="1">{
+        content := "# " + name + `
+
+Microservices project generated by Junxzy CLI 🚀
+`
+
+        return os.WriteFile(filepath.Join(base, "README.md"), []byte(content), os.ModePerm)
+}</span>
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package commands
+
+import (
+        "path/filepath"
+        "time"
+
+        "os"
+
+        "github.com/Junx27/junxzy/internal/file"
+        "github.com/Junx27/junxzy/internal/generator"
+        "github.com/Junx27/junxzy/internal/ui"
+)
+
+var makeModuleSleep = time.Sleep
+var ensureGoModFn = generator.EnsureGoMod
+var createDirsFn = file.CreateDirs
+var generateFullModuleFn = generator.GenerateFullModule
+var injectRouteFn = generator.InjectRoute
+var injectMainFn = generator.InjectMain
+var runGoModTidyFn = generator.RunGoModTidy
+
+type MakeModuleCommand struct{}
+
+func (m MakeModuleCommand) Name() string <span class="cov8" title="1">{
+        return "make:module"
+}</span>
+
+func (m MakeModuleCommand) Execute(args []string) <span class="cov8" title="1">{
+        if len(args) &lt; 1 </span><span class="cov8" title="1">{
+                ui.StopError("Module name is required")
+                return
+        }</span>
+
+        <span class="cov8" title="1">name := args[0]
+        base := filepath.Join("modules", name)
+
+        if _, err := os.Stat(base); !os.IsNotExist(err) </span><span class="cov8" title="1">{
+                ui.StopError("Module already exists: " + name)
+                return
+        }</span>
+
+        <span class="cov8" title="1">modulePath, err := ensureGoModFn(name)
+        if err != nil </span><span class="cov8" title="1">{
+                ui.StopError(err.Error())
+                return
+        }</span>
+
+        <span class="cov8" title="1">dirs := []string{"model", "repository", "service", "handler", "route"}
+
+        ui.RunStep("Creating module structure "+name, func() </span><span class="cov8" title="1">{
+                makeModuleSleep(3 * time.Second)
+                if err := createDirsFn(base, dirs); err != nil </span><span class="cov8" title="1">{
+                        panic(err)</span>
+                }
+        })
+
+        <span class="cov8" title="1">ui.RunStep("Generate full module "+name, func() </span><span class="cov8" title="1">{
+                makeModuleSleep(3 * time.Second)
+                err := generateFullModuleFn(base, name, modulePath)
+                if err != nil </span><span class="cov8" title="1">{
+                        panic(err)</span>
+                }
+        })
+
+        <span class="cov8" title="1">ui.RunStep("Registering route "+name, func() </span><span class="cov8" title="1">{
+                makeModuleSleep(3 * time.Second)
+                err := injectRouteFn(name)
+                if err != nil </span><span class="cov8" title="1">{
+                        panic(err)</span>
+                }
+        })
+
+        <span class="cov8" title="1">ui.RunStep("Injecting main.go", func() </span><span class="cov8" title="1">{
+                makeModuleSleep(3 * time.Second)
+                err := injectMainFn()
+                if err != nil </span><span class="cov8" title="1">{
+                        panic(err)</span>
+                }
+        })
+
+        <span class="cov8" title="1">ui.RunStep("Running go mod tidy", func() </span><span class="cov8" title="1">{
+                makeModuleSleep(3 * time.Second)
+                err := runGoModTidyFn()
+                if err != nil </span><span class="cov8" title="1">{
+                        panic(err)</span>
+                }
+        })
+
+        <span class="cov8" title="1">ui.Success("Module created successfully: " + name)</span>
+}
+</pre>
+		
+		<pre class="file" id="file5" style="display: none">package commands
+
+import (
+        "time"
+
+        "github.com/Junx27/junxzy/internal/ui"
+)
+
+type SimulateCommand struct{}
+
+var simulateSleep = time.Sleep
+
+func (s SimulateCommand) Name() string <span class="cov8" title="1">{
+        return "simulate"
+}</span>
+
+func (s SimulateCommand) Execute(args []string) <span class="cov8" title="1">{
+
+        ui.RunStep("Creating project folder", func() </span><span class="cov8" title="1">{
+                simulateSleep(1 * time.Second)
+        }</span>)
+
+        <span class="cov8" title="1">ui.RunStep("Generate services", func() </span><span class="cov8" title="1">{
+                simulateSleep(2 * time.Second)
+        }</span>)
+
+        <span class="cov8" title="1">ui.RunStep("Setup gateway", func() </span><span class="cov8" title="1">{
+                simulateSleep(1 * time.Second)
+        }</span>)
+
+        <span class="cov8" title="1">ui.RunStep("Generate docker-compose", func() </span><span class="cov8" title="1">{
+                simulateSleep(2 * time.Second)
+        }</span>)
+
+        <span class="cov8" title="1">ui.RunStep("Finalizing project", func() </span><span class="cov8" title="1">{
+                simulateSleep(1 * time.Second)
+        }</span>)
+
+        <span class="cov8" title="1">ui.Success("Simulation completed 🚀")</span>
+}
+</pre>
+		
+		<pre class="file" id="file6" style="display: none">package cli
+
+type Command interface {
+        Name() string
+        Execute(args []string)
+}
+
+var commandRegistry = map[string]Command{}
+
+func RegisterCommand(cmd Command) <span class="cov8" title="1">{
+        commandRegistry[cmd.Name()] = cmd
+}</span>
+</pre>
+		
+		<pre class="file" id="file7" style="display: none">package cli
+
+import (
+        "bufio"
+        "fmt"
+        "os"
+        "strings"
+
+        "github.com/Junx27/junxzy/cmd/commands"
+        "github.com/fatih/color"
+)
+
+func startREPL() <span class="cov8" title="1">{
+        registerCommands()
+
+        cyan := color.New(color.FgCyan, color.Bold).SprintFunc()
+        red := color.New(color.FgRed).SprintFunc()
+
+        scanner := bufio.NewScanner(os.Stdin)
+
+        for </span><span class="cov8" title="1">{
+                fmt.Print(cyan("junxzy") + " » ")
+
+                if !scanner.Scan() </span><span class="cov8" title="1">{
+                        break</span>
+                }
+
+                <span class="cov8" title="1">input := strings.TrimSpace(scanner.Text())
+                if input == "" </span><span class="cov8" title="1">{
+                        continue</span>
+                }
+
+                <span class="cov8" title="1">parts := strings.Fields(input)
+                cmdName := parts[0]
+                args := parts[1:]
+
+                cmd, exists := commandRegistry[cmdName]
+                if !exists </span><span class="cov8" title="1">{
+                        fmt.Println(red("Command tidak dikenal:"), cmdName)
+                        continue</span>
+                }
+
+                <span class="cov8" title="1">cmd.Execute(args)</span>
+        }
+}
+
+func registerCommands() <span class="cov8" title="1">{
+        RegisterCommand(commands.HelpCommand{})
+        RegisterCommand(commands.ClearCommand{})
+        RegisterCommand(commands.ExitCommand{})
+        RegisterCommand(commands.MakeModuleCommand{})
+        RegisterCommand(commands.InitCommand{})
+        RegisterCommand(commands.SimulateCommand{})
+}</pre>
+		
+		<pre class="file" id="file8" style="display: none">package cli
+
+import (
+        "fmt"
+        "os"
+
+        "github.com/fatih/color"
+        "github.com/spf13/cobra"
+)
+
+var runRootCommand = func() error <span class="cov8" title="1">{
+        return rootCmd.Execute()
+}</span>
+
+var exitProcess = os.Exit
+
+var rootCmd = &amp;cobra.Command{
+        Use:   "junxzy",
+        Short: "Happy coding with Junxzy CLI! 🚀",
+        Run: func(cmd *cobra.Command, args []string) <span class="cov8" title="1">{
+                printBanner()
+                startREPL()
+        }</span>,
+}
+
+func printBanner() <span class="cov8" title="1">{
+        cyan := color.New(color.FgCyan, color.Bold).SprintFunc()
+        magenta := color.New(color.FgMagenta, color.Bold).SprintFunc()
+        yellow := color.New(color.FgYellow, color.Bold).SprintFunc()
+        green := color.New(color.FgGreen, color.Bold).SprintFunc()
+        red := color.New(color.FgRed, color.Bold).SprintFunc()
+        blue := color.New(color.FgBlue, color.Bold).SprintFunc()
+        white := color.New(color.FgWhite, color.Bold).SprintFunc()
+
+        fmt.Println()
+        fmt.Println(cyan("   ██╗") + magenta("  ██╗   ██╗  ") + yellow("███╗   ██╗") + green("  ██╗  ██╗  ") + red("███████╗") + blue("  ██╗   ██╗"))
+        fmt.Println(cyan("   ██║") + magenta("  ██║   ██║  ") + yellow("████╗  ██║") + green("  ╚██╗██╔╝  ") + red("╚════██║") + blue("  ╚██╗ ██╔╝"))
+        fmt.Println(cyan("   ██║") + magenta("  ██║   ██║  ") + yellow("██╔██╗ ██║") + green("   ╚███╔╝   ") + red("    ██╔╝") + blue("   ╚████╔╝ "))
+        fmt.Println(cyan("██ ██║") + magenta("  ██║   ██║  ") + yellow("██║╚██╗██║") + green("   ██╔██╗   ") + red("   ██╔╝ ") + blue("    ╚██╔╝  "))
+        fmt.Println(cyan("╚████╔╝") + magenta(" ╚██████╔╝  ") + yellow("██║ ╚████║") + green("  ██╔╝ ██╗  ") + red("  ██████╗") + blue("    ██║   "))
+        fmt.Println(cyan(" ╚═══╝ ") + magenta("  ╚═════╝   ") + yellow("╚═╝  ╚═══╝") + green("  ╚═╝  ╚═╝  ") + red("  ╚═════╝") + blue("    ╚═╝   "))
+        fmt.Println()
+
+        fmt.Println(cyan("  ╔══════════════════════════════════════╗"))
+        fmt.Println(cyan("  ║") + white("   Welcome to Junxzy CLI! 🚀          ") + cyan("║"))
+        fmt.Println(cyan("  ║") + white("   Happy coding with Golang 🔥        ") + cyan("║"))
+        fmt.Println(cyan("  ╚══════════════════════════════════════╝"))
+        fmt.Println()
+        fmt.Println(white("  Junxzy CLI is your personal developer assistant"))
+        fmt.Println(white("  for generating modules, managing projects, and speeding up your workflow."))
+        fmt.Println(yellow("  Type ") + green("'help'") + yellow(" to see all commands."))
+        fmt.Println(yellow("  Type ") + red("'exit'") + yellow(" to exit."))
+        fmt.Println()
+}</span>
+
+func Execute() <span class="cov8" title="1">{
+        err := runRootCommand()
+        if err != nil </span><span class="cov8" title="1">{
+                fmt.Fprintln(os.Stderr, err)
+                exitProcess(1)
+        }</span>
+}
+
+func init() <span class="cov8" title="1">{
+        rootCmd.CompletionOptions.DisableDefaultCmd = true
+}</pre>
+		
+		<pre class="file" id="file9" style="display: none">package file
+
+import (
+        "os"
+        "path/filepath"
+)
+
+func CreateDirs(base string, dirs []string) error <span class="cov8" title="1">{
+        for _, d := range dirs </span><span class="cov8" title="1">{
+                path := filepath.Join(base, d)
+                if err := os.MkdirAll(path, os.ModePerm); err != nil </span><span class="cov8" title="1">{
+                        return err
+                }</span>
+        }
+        <span class="cov8" title="1">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file10" style="display: none">package generator
+
+import (
+        "os/exec"
+)
+
+func RunGoModTidy() error <span class="cov8" title="1">{
+        cmd := exec.Command("go", "mod", "tidy")
+        cmd.Stdout = nil
+        cmd.Stderr = nil
+        return cmd.Run()
+}</span>
+</pre>
+		
+		<pre class="file" id="file11" style="display: none">package generator
+
+import (
+        "fmt"
+        "os"
+        "os/exec"
+)
+
+func EnsureGoMod(projectName string) (string, error) <span class="cov8" title="1">{
+        // cek apakah go.mod sudah ada
+        if _, err := os.Stat("go.mod"); os.IsNotExist(err) </span><span class="cov8" title="1">{
+
+                // fallback module name (simple)
+                moduleName := projectName
+
+                // jalankan: go mod init
+                cmd := exec.Command("go", "mod", "init", moduleName)
+                err := cmd.Run()
+                if err != nil </span><span class="cov8" title="1">{
+                        return "", fmt.Errorf("gagal init go.mod: %v", err)
+                }</span>
+
+                <span class="cov8" title="1">return moduleName, nil</span>
+        }
+
+        // kalau sudah ada → ambil dari go.mod
+        <span class="cov8" title="1">return GetModulePath(), nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file12" style="display: none">package generator
+
+import (
+        "os"
+        "strings"
+)
+
+func GetModulePath() string <span class="cov8" title="1">{
+        data, _ := os.ReadFile("go.mod")
+        lines := strings.Split(string(data), "\n")
+
+        for _, l := range lines </span><span class="cov8" title="1">{
+                if strings.HasPrefix(l, "module ") </span><span class="cov8" title="1">{
+                        return strings.TrimSpace(strings.Replace(l, "module", "", 1))
+                }</span>
+        }
+        <span class="cov8" title="1">return ""</span>
+}
+</pre>
+		
+		<pre class="file" id="file13" style="display: none">package generator
+
+import (
+        "fmt"
+        "os"
+        "strings"
+)
+
+func InjectMain() error <span class="cov8" title="1">{
+        filePath := "main.go"
+
+        modulePath := GetModulePath()
+        if modulePath == "" </span><span class="cov8" title="1">{
+                return fmt.Errorf("module path tidak ditemukan")
+        }</span>
+
+        // ✅ kalau belum ada → buat dari nol
+        <span class="cov8" title="1">if _, err := os.Stat(filePath); os.IsNotExist(err) </span><span class="cov8" title="1">{
+                template := `package main
+
+import (
+        "github.com/gin-gonic/gin"
+        "` + modulePath + `/router"
+)
+
+func main() {
+        r := gin.Default()
+
+        router.RegisterRoutes(r)
+
+        r.Run(":8080")
+}
+`
+                return os.WriteFile(filePath, []byte(template), os.ModePerm)
+        }</span>
+
+        // ✅ kalau sudah ada → inject
+        <span class="cov8" title="1">data, err := os.ReadFile(filePath)
+        if err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+
+        <span class="cov8" title="1">content := string(data)
+
+        importLine := `"` + modulePath + `/router"`
+
+        // inject import
+        if !strings.Contains(content, importLine) </span><span class="cov8" title="1">{
+                content = strings.Replace(
+                        content,
+                        "import (",
+                        "import (\n\t"+importLine,
+                        1,
+                )
+        }</span>
+
+        // inject register
+        <span class="cov8" title="1">if !strings.Contains(content, "router.RegisterRoutes") </span><span class="cov8" title="1">{
+                content = strings.Replace(
+                        content,
+                        "r := gin.Default()",
+                        "r := gin.Default()\n\n\trouter.RegisterRoutes(r)",
+                        1,
+                )
+        }</span>
+
+        <span class="cov8" title="1">return os.WriteFile(filePath, []byte(content), os.ModePerm)</span>
+}
+</pre>
+		
+		<pre class="file" id="file14" style="display: none">package generator
+
+import (
+        "os"
+        "path/filepath"
+        "strings"
+)
+
+func GenerateFullModule(base, moduleName, modulePath string) error <span class="cov8" title="1">{
+        name := capitalize(moduleName)
+        lower := strings.ToLower(moduleName)
+
+        // ===== MODEL =====
+        model := `package model
+
+type ` + name + ` struct {
+        ID   int    ` + "`json:\"id\"`" + `
+        Name string ` + "`json:\"name\"`" + `
+}
+`
+
+        // ===== REPOSITORY =====
+        repo := `package repository
+
+import "` + modulePath + `/modules/` + lower + `/model"
+
+type ` + name + `Repository interface {
+        FindAll() []model.` + name + `
+        FindByID(id int) *model.` + name + `
+        Create(data model.` + name + `)
+}
+
+type ` + lower + `Repository struct {
+        data []model.` + name + `
+}
+
+func New` + name + `Repository() ` + name + `Repository {
+        return &amp;` + lower + `Repository{}
+}
+
+func (r *` + lower + `Repository) FindAll() []model.` + name + ` {
+        return r.data
+}
+
+func (r *` + lower + `Repository) FindByID(id int) *model.` + name + ` {
+        for _, v := range r.data {
+                if v.ID == id {
+                        return &amp;v
+                }
+        }
+        return nil
+}
+
+func (r *` + lower + `Repository) Create(data model.` + name + `) {
+        r.data = append(r.data, data)
+}
+`
+
+        // ===== SERVICE =====
+        service := `package service
+
+import (
+        "` + modulePath + `/modules/` + lower + `/model"
+        "` + modulePath + `/modules/` + lower + `/repository"
+)
+
+type ` + name + `Service interface {
+        GetAll() []model.` + name + `
+        GetByID(id int) *model.` + name + `
+        Create(data model.` + name + `)
+}
+
+type ` + lower + `Service struct {
+        repo repository.` + name + `Repository
+}
+
+func New` + name + `Service(r repository.` + name + `Repository) ` + name + `Service {
+        return &amp;` + lower + `Service{repo: r}
+}
+
+func (s *` + lower + `Service) GetAll() []model.` + name + ` {
+        return s.repo.FindAll()
+}
+
+func (s *` + lower + `Service) GetByID(id int) *model.` + name + ` {
+        return s.repo.FindByID(id)
+}
+
+func (s *` + lower + `Service) Create(data model.` + name + `) {
+        s.repo.Create(data)
+}
+`
+
+        // ===== HANDLER =====
+        handler := `package handler
+
+import (
+        "net/http"
+        "strconv"
+
+        "github.com/gin-gonic/gin"
+        "` + modulePath + `/modules/` + lower + `/model"
+        "` + modulePath + `/modules/` + lower + `/service"
+)
+
+type ` + name + `Handler struct {
+        service service.` + name + `Service
+}
+
+func New` + name + `Handler(s service.` + name + `Service) *` + name + `Handler {
+        return &amp;` + name + `Handler{service: s}
+}
+
+func (h *` + name + `Handler) GetAll(c *gin.Context) {
+        c.JSON(http.StatusOK, h.service.GetAll())
+}
+
+func (h *` + name + `Handler) GetByID(c *gin.Context) {
+        id, _ := strconv.Atoi(c.Param("id"))
+        data := h.service.GetByID(id)
+
+        if data == nil {
+                c.JSON(http.StatusNotFound, gin.H{"message": "not found"})
+                return
+        }
+
+        c.JSON(http.StatusOK, data)
+}
+
+func (h *` + name + `Handler) Create(c *gin.Context) {
+        var req model.` + name + `
+
+        if err := c.ShouldBindJSON(&amp;req); err != nil {
+                c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }
+
+        h.service.Create(req)
+
+        c.JSON(http.StatusOK, req)
+}
+`
+
+        // ===== ROUTE =====
+        route := `package route
+
+import (
+        "github.com/gin-gonic/gin"
+
+        "` + modulePath + `/modules/` + lower + `/handler"
+        "` + modulePath + `/modules/` + lower + `/repository"
+        "` + modulePath + `/modules/` + lower + `/service"
+)
+
+func Register` + name + `Routes(r *gin.Engine) {
+        repo := repository.New` + name + `Repository()
+        svc := service.New` + name + `Service(repo)
+        h := handler.New` + name + `Handler(svc)
+
+        group := r.Group("/` + lower + `")
+        {
+                group.GET("/", h.GetAll)
+                group.GET("/:id", h.GetByID)
+                group.POST("/", h.Create)
+        }
+}
+`
+
+        // write files
+        if err := write(filepath.Join(base, "model", lower+".go"), model); err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+        <span class="cov8" title="1">if err := write(filepath.Join(base, "repository", lower+"_repository.go"), repo); err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+        <span class="cov8" title="1">if err := write(filepath.Join(base, "service", lower+"_service.go"), service); err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+        <span class="cov8" title="1">if err := write(filepath.Join(base, "handler", lower+"_handler.go"), handler); err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+        <span class="cov8" title="1">if err := write(filepath.Join(base, "route", lower+"_route.go"), route); err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+
+        <span class="cov8" title="1">return nil</span>
+}
+
+func write(path, content string) error <span class="cov8" title="1">{
+        if err := os.MkdirAll(filepath.Dir(path), os.ModePerm); err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+        <span class="cov8" title="1">if err := os.WriteFile(path, []byte(content), os.ModePerm); err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+        <span class="cov8" title="1">return nil</span>
+}
+
+func capitalize(s string) string <span class="cov8" title="1">{
+        return strings.ToUpper(s[:1]) + s[1:]
+}</span>
+</pre>
+		
+		<pre class="file" id="file15" style="display: none">package generator
+
+import (
+        "fmt"
+        "os"
+        "strings"
+)
+
+func InjectRoute(moduleName string) error <span class="cov8" title="1">{
+        filePath := "router/router.go"
+
+        // ✅ kalau router belum ada → buat dulu
+        if _, err := os.Stat(filePath); os.IsNotExist(err) </span><span class="cov8" title="1">{
+                template := `package router
+
+import (
+        "github.com/gin-gonic/gin"
+)
+
+func RegisterRoutes(r *gin.Engine) {
+
+}
+`
+                if err := os.MkdirAll("router", os.ModePerm); err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+                <span class="cov8" title="1">if err := os.WriteFile(filePath, []byte(template), os.ModePerm); err != nil </span><span class="cov8" title="1">{
+                        return err
+                }</span>
+        }
+
+        <span class="cov8" title="1">data, err := os.ReadFile(filePath)
+        if err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+
+        <span class="cov8" title="1">content := string(data)
+        lower := strings.ToLower(moduleName)
+
+        modulePath := GetModulePath()
+        if modulePath == "" </span><span class="cov8" title="1">{
+                return fmt.Errorf("module path tidak ditemukan")
+        }</span>
+
+        <span class="cov8" title="1">importLine := fmt.Sprintf(`"%s/modules/%s/route"`, modulePath, lower)
+        registerLine := fmt.Sprintf("\troute.Register%sRoutes(r)", capitalize(moduleName))
+
+        // inject import
+        if !strings.Contains(content, importLine) </span><span class="cov8" title="1">{
+                content = strings.Replace(
+                        content,
+                        "import (",
+                        "import (\n\t"+importLine,
+                        1,
+                )
+        }</span>
+
+        // inject register
+        <span class="cov8" title="1">if !strings.Contains(content, registerLine) </span><span class="cov8" title="1">{
+                content = strings.Replace(
+                        content,
+                        "func RegisterRoutes(r *gin.Engine) {",
+                        "func RegisterRoutes(r *gin.Engine) {\n"+registerLine,
+                        1,
+                )
+        }</span>
+
+        <span class="cov8" title="1">if err := os.WriteFile(filePath, []byte(content), os.ModePerm); err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+
+        <span class="cov8" title="1">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file16" style="display: none">package ui
+
+import "fmt"
+
+func RunStep(message string, fn func()) <span class="cov8" title="1">{
+        Start(message)
+        defer func() </span><span class="cov8" title="1">{
+                if r := recover(); r != nil </span><span class="cov8" title="1">{
+                        StopError(fmt.Sprintf("Error: %v", r))
+                        return
+                }</span>
+        }()
+        <span class="cov8" title="1">fn()
+        StopSuccess(message + " selesai")</span>
+}
+</pre>
+		
+		<pre class="file" id="file17" style="display: none">package ui
+
+import (
+        "fmt"
+        "time"
+
+        "github.com/briandowns/spinner"
+        "github.com/fatih/color"
+)
+
+var (
+        green = color.New(color.FgGreen, color.Bold).SprintFunc()
+        red   = color.New(color.FgRed, color.Bold).SprintFunc()
+)
+
+var s *spinner.Spinner
+
+func Success(message string) <span class="cov8" title="1">{
+        fmt.Println(green(message))
+}</span>
+
+// Start loading animation
+func Start(message string) <span class="cov8" title="1">{
+        s = spinner.New(spinner.CharSets[14], 100*time.Millisecond)
+        s.Suffix = " " + message
+        s.Start()
+}</span>
+
+// Stop loading animation (success)
+func StopSuccess(message string) <span class="cov8" title="1">{
+        if s != nil </span><span class="cov8" title="1">{
+                s.Stop()
+        }</span>
+        <span class="cov8" title="1">fmt.Println(green("✔ ") + message)</span>
+}
+
+// Stop loading animation (error)
+func StopError(message string) <span class="cov8" title="1">{
+        if s != nil </span><span class="cov8" title="1">{
+                s.Stop()
+        }</span>
+        <span class="cov8" title="1">fmt.Println(red("✖ ") + message)</span>
+}
+</pre>
+		
+		<pre class="file" id="file18" style="display: none">package main
+
+import "github.com/Junx27/junxzy/internal/cli"
+
+var execute = cli.Execute
+
+func main() <span class="cov8" title="1">{
+        execute()
+}</span>
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

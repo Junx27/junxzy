@@ -11,6 +11,14 @@ import (
 	"github.com/Junx27/junxzy/internal/ui"
 )
 
+var makeModuleSleep = time.Sleep
+var ensureGoModFn = generator.EnsureGoMod
+var createDirsFn = file.CreateDirs
+var generateFullModuleFn = generator.GenerateFullModule
+var injectRouteFn = generator.InjectRoute
+var injectMainFn = generator.InjectMain
+var runGoModTidyFn = generator.RunGoModTidy
+
 type MakeModuleCommand struct{}
 
 func (m MakeModuleCommand) Name() string {
@@ -31,7 +39,7 @@ func (m MakeModuleCommand) Execute(args []string) {
 		return
 	}
 
-	modulePath, err := generator.EnsureGoMod(name)
+	modulePath, err := ensureGoModFn(name)
 	if err != nil {
 		ui.StopError(err.Error())
 		return
@@ -40,39 +48,39 @@ func (m MakeModuleCommand) Execute(args []string) {
 	dirs := []string{"model", "repository", "service", "handler", "route"}
 
 	ui.RunStep("Creating module structure "+name, func() {
-		time.Sleep(3 * time.Second)
-		if err := file.CreateDirs(base, dirs); err != nil {
+		makeModuleSleep(3 * time.Second)
+		if err := createDirsFn(base, dirs); err != nil {
 			panic(err)
 		}
 	})
 
 	ui.RunStep("Generate full module "+name, func() {
-		time.Sleep(3 * time.Second)
-		err := generator.GenerateFullModule(base, name, modulePath)
+		makeModuleSleep(3 * time.Second)
+		err := generateFullModuleFn(base, name, modulePath)
 		if err != nil {
 			panic(err)
 		}
 	})
 
 	ui.RunStep("Registering route "+name, func() {
-		time.Sleep(3 * time.Second)
-		err := generator.InjectRoute(name)
+		makeModuleSleep(3 * time.Second)
+		err := injectRouteFn(name)
 		if err != nil {
 			panic(err)
 		}
 	})
 
 	ui.RunStep("Injecting main.go", func() {
-		time.Sleep(3 * time.Second)
-		err := generator.InjectMain()
+		makeModuleSleep(3 * time.Second)
+		err := injectMainFn()
 		if err != nil {
 			panic(err)
 		}
 	})
 
 	ui.RunStep("Running go mod tidy", func() {
-		time.Sleep(3 * time.Second)
-		err := generator.RunGoModTidy()
+		makeModuleSleep(3 * time.Second)
+		err := runGoModTidyFn()
 		if err != nil {
 			panic(err)
 		}

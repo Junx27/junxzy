@@ -8,6 +8,14 @@ import (
 	"github.com/Junx27/junxzy/internal/ui"
 )
 
+var initCreateDirFn = createDir
+var initCreateServiceFn = createService
+var initCreateGatewayFn = func(base string) error {
+	return os.MkdirAll(filepath.Join(base, "gateway"), os.ModePerm)
+}
+var initCreateDockerComposeFn = createDockerCompose
+var initCreateReadmeFn = createReadme
+
 type InitCommand struct{}
 
 func (i InitCommand) Name() string {
@@ -28,7 +36,7 @@ func (i InitCommand) Execute(args []string) {
 	}
 
 	ui.Start("Membuat folder project...")
-	if err := createDir(projectName); err != nil {
+	if err := initCreateDirFn(projectName); err != nil {
 		ui.StopError(err.Error())
 		return
 	}
@@ -40,7 +48,7 @@ func (i InitCommand) Execute(args []string) {
 
 	ui.Start("Membuat services...")
 	for _, svc := range services {
-		if err := createService(base, svc); err != nil {
+		if err := initCreateServiceFn(base, svc); err != nil {
 			ui.StopError(err.Error())
 			return
 		}
@@ -48,21 +56,21 @@ func (i InitCommand) Execute(args []string) {
 	ui.StopSuccess("Semua services berhasil dibuat")
 
 	ui.Start("Membuat gateway...")
-	if err := os.MkdirAll(filepath.Join(base, "gateway"), os.ModePerm); err != nil {
+	if err := initCreateGatewayFn(base); err != nil {
 		ui.StopError(err.Error())
 		return
 	}
 	ui.StopSuccess("Gateway dibuat")
 
 	ui.Start("Membuat docker-compose...")
-	if err := createDockerCompose(base); err != nil {
+	if err := initCreateDockerComposeFn(base); err != nil {
 		ui.StopError(err.Error())
 		return
 	}
 	ui.StopSuccess("docker-compose dibuat")
 
 	ui.Start("Membuat README...")
-	if err := createReadme(base, projectName); err != nil {
+	if err := initCreateReadmeFn(base, projectName); err != nil {
 		ui.StopError(err.Error())
 		return
 	}
